@@ -3,10 +3,14 @@ import { View, SafeAreaView, Text, StyleSheet, StatusBar, TouchableOpacity, Butt
 import { theme } from "../styles";
 import { LinearGradient } from "expo-linear-gradient";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import * as Haptics from 'expo-haptics';
+import { add } from '../clients/homeClient'
 
-const Home = ({ navigation }) => {
-  const [name, changeName] = useState();
+
+const Home = ({route, navigation}) => {
+  const [address, changeAddress] = useState();
   const [placeId, changePlaceId] = useState();
+  const [name, changeName] = useState();
 
   return (
     <>
@@ -37,6 +41,7 @@ const Home = ({ navigation }) => {
           <View style={{flexDirection: 'row', marginBottom: 300, justifyContent: 'space-around'}}>
             <TouchableOpacity
               onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                 navigation.navigate('Scorecard', {
                   placeId: placeId,
                   name: name
@@ -47,10 +52,13 @@ const Home = ({ navigation }) => {
               <Text style={styles.buttonText}>Check Scorecard</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={(address) => {console.log(address)}}
+              onPress={(address) => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                navigation.navigate('Rating', { place_id: placeId, address_name : name });
+              }}
               style={styles.button}
             >
-              <Text style={styles.buttonText}>Review Safety</Text>
+              <Text style={styles.buttonText}>Report Data</Text>
             </TouchableOpacity>
           </View>
         </LinearGradient>
