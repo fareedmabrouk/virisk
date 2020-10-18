@@ -73,7 +73,9 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 2,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginLeft: 10,
+    marginRight: 10
   },
   buttonText: {
     color: theme.text,
