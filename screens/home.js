@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { View, SafeAreaView, Text, StyleSheet, StatusBar, TextInput, Button, Picker } from "react-native";
+import { View, SafeAreaView, Text, StyleSheet, StatusBar, TouchableOpacity, Button, Picker } from "react-native";
 import { theme } from "../styles";
 import { LinearGradient } from "expo-linear-gradient";
-import { Picker } from '@react-native-community/picker';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { add } from '../clients/homeClient'
 
 const Home = () => {
-  const [value, onChangeText] = useState();
+  const [address, changeAddress] = useState();
 
   return (
     <>
@@ -14,36 +15,44 @@ const Home = () => {
         <LinearGradient
           colors={["#09C6F9", "#045DE9"]}
           style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
+            flex: 1
           }}
         >
-          <Text style={styles.text}>Enter An Address</Text>
-          <TextInput
-            style={{ height: 100, color: 'white' }}
-            placeholder="Ex: Safeway 19th St."
-            onChangeText={text => onChangeText(text)}
-            value={value}
-          />
-          
-          <Picker
-          >
-
-          </Picker>
-          <View style={{flexDirection: 'row'}}>
-            <Button
-              onPress={console.log('test')}
-              title='Review Safety'
-              color='white'
-              accessibilityLabel='Review a business sanitation'
+          <View style={{alignItems: 'center'}}>
+            <Text style={styles.text}>Enter An Address</Text>
+          </View>
+          <View style={{flex: 1, flexDirection: 'row', marginLeft: 30, marginRight: 30}}>
+            <GooglePlacesAutocomplete
+              placeholder='Search'
+              onPress={(data, details = null) => {
+                console.log('fetching the result');
+                console.log(data);
+                changeAddress(data);
+              }}
+              query={{
+                key: 'AIzaSyBL71YXDYhH8_56sew0qDJ3crkYiHjbVLg',
+                language: 'en',
+              }}
+              styles={{
+                
+              }}
             />
-            <Button
-              onPress={console.log('test')}
-              title='Rate Business'
-              color='white'
-              accessibilityLabel='Review a business sanitation'
-            />
+          </View>
+          <View style={{flexDirection: 'row', marginBottom: 300, justifyContent: 'space-around'}}>
+            <TouchableOpacity
+              onPress={(address) => {
+                console.log(address)
+              }}
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>Check Safety</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={(address) => {console.log(address)}}
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>Review Safety</Text>
+            </TouchableOpacity>
           </View>
         </LinearGradient>
       </SafeAreaView>
@@ -57,6 +66,22 @@ const styles = StyleSheet.create({
     color: theme.text,
     fontSize: 40,
     fontFamily: "Futura",
+    marginTop: 100,
+    marginBottom: 50,
+  },
+  button: {
+    borderRadius: 10,
+    borderColor: 'white',
+    borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    color: theme.text,
+    fontFamily: 'Futura',
+    color: 'white',
+    padding: 10,
+    fontSize: 22
   },
   container: {
     flex: 1,
