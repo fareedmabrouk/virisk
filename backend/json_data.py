@@ -12,6 +12,11 @@ def get_Rating(placeId):
     print(placeId)
     return {"placeId": placeId}
 
+@app.route('/')
+def home():
+    return "HEllo worlds"
+
+
 cred = credentials.Certificate("/Users/bradleywilson/Coding/ViRisk/virisk/backend/virisk-firebase-adminsdk-ghps9-7f6f1ffaed.json")
 firebase_admin.initialize_app(cred, {'databaseURL': 'https://virisk.firebaseio.com/'})
 
