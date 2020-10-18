@@ -29,8 +29,6 @@ const Home = ({route, navigation}) => {
             <GooglePlacesAutocomplete
               placeholder='Search'
               onPress={(data, details = null) => {
-                console.log('fetching the result');
-                console.log(data);
                 changePlaceId(data.place_id);
                 changeName(data.structured_formatting.main_text);
               }}
@@ -38,15 +36,16 @@ const Home = ({route, navigation}) => {
                 key: 'AIzaSyBL71YXDYhH8_56sew0qDJ3crkYiHjbVLg',
                 language: 'en',
               }}
-              styles={{
-                
-              }}
             />
           </View>
           <View style={{flexDirection: 'row', marginBottom: 300, justifyContent: 'space-around'}}>
             <TouchableOpacity
-              onPress={(address) => {
-                console.log(address)
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                navigation.navigate('Scorecard', {
+                  placeId: placeId,
+                  name: name
+                });
               }}
               style={styles.button}
             >
@@ -82,7 +81,9 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 2,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginLeft: 10,
+    marginRight: 10
   },
   buttonText: {
     color: theme.text,
