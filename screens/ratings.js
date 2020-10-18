@@ -3,11 +3,17 @@ import { View, SafeAreaView, Text, StyleSheet, StatusBar, Button, TouchableOpaci
 import { theme } from "../styles";
 import { LinearGradient } from "expo-linear-gradient";
 import { Rating } from 'react-native-ratings';
+import * as Haptics from 'expo-haptics';
 
 const Ratings = ({route, navigation}) => {
+    const { place_id, address_name } = route.params;
     const [rate, setRating] = useState(3.5);
-    const onPress = () => navigation.navigate('Form', { star_rating: rate });
-    const ratingCompleted = (rating) => setRating(rating);
+    const onPress = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        navigation.navigate('Form', { place_id : place_id, star_rating: rate });}
+    const ratingCompleted = (rating) => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        setRating(rating);}
 
   return (
     <>
@@ -22,8 +28,8 @@ const Ratings = ({route, navigation}) => {
           }}
         >
         <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-            <View style={{marginBottom: 100, flexDirection: 'row', justifyContent: 'center'}}>
-                <Text style={styles.text}>Rate ___ on its COVID-19 Safety Guidelines:</Text>
+            <View style={{marginRight: 20, marginLeft: 20, marginBottom: 90, flexDirection: 'row', justifyContent: 'center'}}>
+                <Text style={styles.text}>Rate {address_name} on its COVID-19 Safety Guidelines:</Text>
             </View>
             <View style={{borderRadius: 300, backgroundColor: "#ffffff", marginLeft: 30, marginRight: 30, flexDirection: 'row', justifyContent: 'center'}}>
                 <View style={{padding: 30, flex: 1}}>
@@ -32,7 +38,7 @@ const Ratings = ({route, navigation}) => {
                     showRating={true}
                     type="custom"
                     ratingColor="#FF4500"
-                    startingValue={3.5}
+                    startingValue={3}
                     fractions={0}
                     ratingBackgroundColor="#ffa280"
                     tintColor="#ffffff"
@@ -45,7 +51,8 @@ const Ratings = ({route, navigation}) => {
                 <TouchableOpacity 
                 style={{margin:25, 
                 alignItems: "center",
-                backgroundColor: "#ffa280",
+                borderColor: 'white',
+                borderWidth: 2,
                 padding: 20,
                 borderRadius: 100}}
                 onPress={onPress}>
@@ -64,7 +71,7 @@ const styles = StyleSheet.create({
   text: {
     color: theme.text,
     fontSize: 40,
-    fontFamily: "Roboto",
+    fontFamily: "Futura",
   },
   container: {
     flex: 1,
