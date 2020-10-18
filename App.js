@@ -14,8 +14,8 @@ function App() {
           headerShown: false
         }}
       >
-        <Stack.Screen name="Scorecard" component={Scorecard} />
-        <Stack.Screen name="Home" component={Home} />        
+        <Stack.Screen name="Home" component={Home} />      
+        <Stack.Screen name="Scorecard" component={Scorecard} />  
       </Stack.Navigator>
     </NavigationContainer>
   );

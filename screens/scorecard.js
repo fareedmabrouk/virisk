@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, SafeAreaView, Text, StyleSheet, StatusBar } from "react-native";
 import { theme } from "../styles";
 import { LinearGradient } from "expo-linear-gradient";
-import { Rating } from 'react-native-ratings';
+import getScore from '../clients/scoreClient';
 
-const Scorecard = () => {
+const Scorecard = ({ route, navigation }) => {
+    const {placeId, name} = route.params;
+    const [score, changeScore] = useState();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                var score = await getScore(placeId, name);
+                changeScore(score);
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        fetchData();
+    }, [])
+
 
   return (
     <>
@@ -16,15 +31,8 @@ const Scorecard = () => {
             flex: 1
           }}
         >
-            <View>
-                <Rating
-                showRating
-                ratingCount={5}
-                isDisabled={true}
-                readonly={true}
-                >
-
-                </Rating>
+            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                <Text style={styles.text}>{name}</Text>
             </View>
             <View>
 

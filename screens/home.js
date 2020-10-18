@@ -3,10 +3,10 @@ import { View, SafeAreaView, Text, StyleSheet, StatusBar, TouchableOpacity, Butt
 import { theme } from "../styles";
 import { LinearGradient } from "expo-linear-gradient";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { add } from '../clients/homeClient'
 
-const Home = () => {
-  const [address, changeAddress] = useState();
+const Home = ({ navigation }) => {
+  const [name, changeName] = useState();
+  const [placeId, changePlaceId] = useState();
 
   return (
     <>
@@ -25,27 +25,26 @@ const Home = () => {
             <GooglePlacesAutocomplete
               placeholder='Search'
               onPress={(data, details = null) => {
-                console.log('fetching the result');
-                console.log(data);
-                changeAddress(data);
+                changePlaceId(data.place_id);
+                changeName(data.structured_formatting.main_text);
               }}
               query={{
                 key: 'AIzaSyBL71YXDYhH8_56sew0qDJ3crkYiHjbVLg',
                 language: 'en',
               }}
-              styles={{
-                
-              }}
             />
           </View>
           <View style={{flexDirection: 'row', marginBottom: 300, justifyContent: 'space-around'}}>
             <TouchableOpacity
-              onPress={(address) => {
-                console.log(address)
+              onPress={() => {
+                navigation.navigate('Scorecard', {
+                  placeId: placeId,
+                  name: name
+                });
               }}
               style={styles.button}
             >
-              <Text style={styles.buttonText}>Check Safety</Text>
+              <Text style={styles.buttonText}>Check Scorecard</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={(address) => {console.log(address)}}
