@@ -63,7 +63,7 @@ const Scorecard = ({ route, navigation }) => {
                             <Text style={styles.numberText}>{response.masks}</Text>
                         </View>
                         <View style={{flex: .3, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                            <Text>Low numbers of customers reported to be wearing masks.</Text>
+                            <Text>Percent of people reported that masks were enforced.</Text>
                         </View>
                 </View>
 
@@ -78,7 +78,7 @@ const Scorecard = ({ route, navigation }) => {
                             <Text style={styles.numberText}>{response.cramped}</Text>
                         </View>
                         <View style={{flex: .3, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                            <Text>Walkability isn't great here, social distancing will be difficult.</Text>
+                            <Text>Percent of people reported proper social distancing practices.</Text>
                         </View>
                 </View>
 
@@ -93,7 +93,7 @@ const Scorecard = ({ route, navigation }) => {
                             <Text style={styles.numberText}>{response.sanitized}</Text>
                         </View>
                         <View style={{flex: .3, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                            <Text>Surfaces are not often sanitized here!</Text>
+                            <Text>Percent of people reported properly sanitized surfaces.</Text>
                         </View>
                 </View>
 
@@ -108,7 +108,7 @@ const Scorecard = ({ route, navigation }) => {
                             <Text style={styles.numberText}>{response.stars}</Text>
                         </View>
                         <View style={{flex: .3, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                            <Text>High amount of Covid cases near this area!</Text>
+                            <Text>Percent of people may have COVID-19 in this area.</Text>
                         </View>
                 </View>
 
